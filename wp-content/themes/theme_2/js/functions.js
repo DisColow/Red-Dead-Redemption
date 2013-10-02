@@ -174,5 +174,19 @@ jQuery(document).ready(function(){
 		}
 	
 	});
+        
+        agenceAccueil();
+        
+        function agenceAccueil(){
+            jQuery(".container_articles article").first().addClass("article_phare");
+            var articlePhare = jQuery(".container_articles article").first();
+            jQuery(".container_articles article").eq(3).after(articlePhare);
+            jQuery(".container_articles article").eq(0).addClass("article_top");
+            jQuery(".container_articles article").eq(1).addClass("article_top");
+            jQuery(".container_articles article").eq(2).addClass("article_top");
+            jQuery(".container_articles article").eq(4).addClass("thin_article");
+            jQuery(".container_articles article").eq(5).addClass("small_article_bottom");
+            jQuery(".container_articles article").eq(6).addClass("big_ad_accueil");
+        }
 
 });

@@ -255,6 +255,17 @@ input:focus, textarea:focus{ outline: none; resize: none; }
 
 .comment-respond{ margin-top: -85px; }
 
+/* Articles accueil */
+
+.article_top, .small_article_bottom{ width: 30%; padding-right: 1.5%; padding-left: 1.5%; float: left; height: 200px; overflow: hidden; position: relative; }
+.container_articles_accueil .article_top:nth-child(3){ clear: right; margin-right: 0px; }
+.article_top + .clear{ display: none; }
+.article_phare{ clear: left; float: left; }
+.article_phare, .big_ad_accueil{ width: 60%; float: left; padding-right: 3%; padding-left: 3%; }
+.article_phare + .clear{ display: none; }
+.thin_article{ float: left; width: 30%; padding-left: 1.5%; padding-right: 1.5%;  }
+.small_article_bottom + .clear{ display: none; }
+
 /* Vue tablette */
 
 @media screen and (max-width: 1024px) {
