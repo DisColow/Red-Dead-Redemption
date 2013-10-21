@@ -1,5 +1,55 @@
 jQuery(document).ready(function(){
 
+ /*global jQuery*/
+(function(jQuery){
+	'use strict';
+
+	jQuery.fn.succinct = function(options){
+
+		var defaults = {
+				size: 240,
+				omission: '...',
+				ignore: true
+			},
+			options = jQuery.extend(defaults, options);
+
+		return this.each(function(){
+
+			var textDefault,
+				textTruncated,
+				elements = jQuery(this),
+				regex    = /[!-\/:-@\[-`{-~]jQuery/;
+
+			var truncate = function(){
+
+				elements.each(function(){
+					textDefault = jQuery(this).text();
+
+					if (textDefault.length > options.size) {
+						textTruncated = jQuery.trim(textDefault).
+										substring(0, options.size).
+										split(' ').
+										slice(0, -1).
+										join(' ');
+
+						if (options.ignore) {
+							textTruncated = textTruncated.replace( regex , '' );
+						}
+
+						jQuery(this).text(textTruncated + options.omission);
+					}
+				});
+			};
+
+			var init = function() {
+				truncate();
+			};
+
+			init();
+		});
+	};
+})(jQuery);
+
 	var middleX = parseInt( jQuery(".fond_header").width() / 2 );
 	var middleY = parseInt( jQuery(".fond_header").height() / 2 ); 
 	
@@ -80,7 +130,6 @@ jQuery(document).ready(function(){
 	}
 	
 	var heightContent = jQuery("#main").height();
-	console.log(heightContent);
 	var offset = jQuery("#main").offset();
 	offset = offset.top;
 	
@@ -178,6 +227,7 @@ jQuery(document).ready(function(){
         agenceAccueil();
         
         function agenceAccueil(){
+		
             jQuery(".container_articles article").first().addClass("article_phare");
             var articlePhare = jQuery(".container_articles article").first();
             jQuery(".container_articles article").eq(3).after(articlePhare);
@@ -187,6 +237,45 @@ jQuery(document).ready(function(){
             jQuery(".container_articles article").eq(4).addClass("thin_article");
             jQuery(".container_articles article").eq(5).addClass("small_article_bottom");
             jQuery(".container_articles article").eq(6).addClass("big_ad_accueil");
+			
+            var height = jQuery(".article_phare .entry-content").innerHeight();
+            var height2 = jQuery(".thin_article .entry-content").innerHeight();
+
+            if(height2 < height){
+
+                    height = height2;
+
+            }
+
+            jQuery(".article_phare .entry-content, .thin_article .entry-content").css('max-height', height).css('overflow', 'hidden');			
+
+            var height = jQuery(".small_article_bottom .entry-content").innerHeight();
+            var height2 = jQuery(".big_ad_accueil .entry-content").innerHeight();
+
+            if(height2 < height){
+
+                    height = height2;
+
+            }
+
+            jQuery(".small_article_bottom .entry-content, .big_ad_accueil .entry-content").css('height', height).css('overflow', 'hidden');
+
+            jQuery('.small_article_bottom .entry-content p').succinct({
+                    size: 450
+            });
+			
         }
+		
+        function tronqueTextAccueil(){
+                jQuery("article.article_top").each(function(index, item){
+
+                        jQuery('.entry-content p:first-child', item).succinct({
+                                size: 250
+                        });
+
+                });
+        }
+		
+        tronqueTextAccueil();
 
 });
